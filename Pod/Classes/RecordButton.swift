@@ -5,7 +5,6 @@
 //  Created by Samuel Beek on 21/06/15.
 //  Copyright (c) 2015 Samuel Beek. All rights reserved.
 //
-
 @objc public enum RecordButtonState : Int {
     case recording, idle, hidden;
 }
@@ -118,30 +117,30 @@
     fileprivate func setRecording(_ recording: Bool) {
         
         let duration: TimeInterval = 0.15
-        circleLayer.contentsGravity = "center"
-        
+        circleLayer.contentsGravity = CALayerContentsGravity(rawValue: "center")
+
         let scale = CABasicAnimation(keyPath: "transform.scale")
         scale.fromValue = recording ? 1.0 : 0.88
         scale.toValue = recording ? 0.88 : 1
         scale.duration = duration
-        scale.fillMode = kCAFillModeForwards
+        scale.fillMode = CAMediaTimingFillMode.forwards
         scale.isRemovedOnCompletion = false
         
         let color = CABasicAnimation(keyPath: "backgroundColor")
         color.duration = duration
-        color.fillMode = kCAFillModeForwards
+        color.fillMode = CAMediaTimingFillMode.forwards
         color.isRemovedOnCompletion = false
         color.toValue = recording ? progressColor.cgColor : buttonColor.cgColor
         
         let circleAnimations = CAAnimationGroup()
         circleAnimations.isRemovedOnCompletion = false
-        circleAnimations.fillMode = kCAFillModeForwards
+        circleAnimations.fillMode = CAMediaTimingFillMode.forwards
         circleAnimations.duration = duration
         circleAnimations.animations = [scale, color]
         
         let borderColor: CABasicAnimation = CABasicAnimation(keyPath: "borderColor")
         borderColor.duration = duration
-        borderColor.fillMode = kCAFillModeForwards
+        borderColor.fillMode = CAMediaTimingFillMode.forwards
         borderColor.isRemovedOnCompletion = false
         borderColor.toValue = recording ? UIColor(red: 0.83, green: 0.86, blue: 0.89, alpha: 1).cgColor : buttonColor
         
@@ -149,12 +148,12 @@
         borderScale.fromValue = recording ? 1.0 : 0.88
         borderScale.toValue = recording ? 0.88 : 1.0
         borderScale.duration = duration
-        borderScale.fillMode = kCAFillModeForwards
+        borderScale.fillMode = CAMediaTimingFillMode.forwards
         borderScale.isRemovedOnCompletion = false
         
         let borderAnimations = CAAnimationGroup()
         borderAnimations.isRemovedOnCompletion = false
-        borderAnimations.fillMode = kCAFillModeForwards
+        borderAnimations.fillMode = CAMediaTimingFillMode.forwards
         borderAnimations.duration = duration
         borderAnimations.animations = [borderColor, borderScale]
         
@@ -162,7 +161,7 @@
         fade.fromValue = recording ? 0.0 : 1.0
         fade.toValue = recording ? 1.0 : 0.0
         fade.duration = duration
-        fade.fillMode = kCAFillModeForwards
+        fade.fillMode = CAMediaTimingFillMode.forwards
         fade.isRemovedOnCompletion = false
         
         circleLayer.add(circleAnimations, forKey: "circleAnimations")
@@ -221,4 +220,3 @@
     
     
 }
-
